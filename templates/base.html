@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, height=device-height">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap-grid.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap-reboot.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+         <nav class="navbar navbar-light fixed-top bg-white">
+          <!-- Brand -->
+             <a class="navbar-brand title-font" href="{{ url_for('main') }}"><b>Arrive</b></a>
+
+          <!-- Toggler/collapsibe Button -->
+          <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <!-- Navbar links -->
+          <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link text-center" href="{{ url_for('main') }}">Home</a>
+              </li>
+              <li class="nav-item text-center">
+                <a class="nav-link" href="{{ url_for('new_order') }}">Create New Order</a>
+              </li>
+              <li class="nav-item text-center">
+                <a class="nav-link" href="{{ url_for('orders') }}">Customer Arrivals</a>
+              </li>
+            </ul>
+          </div>
+         </nav>
+        </div>
+    </div>
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>

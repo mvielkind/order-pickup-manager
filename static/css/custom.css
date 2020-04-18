@@ -1,0 +1,38 @@
+.navbar{
+    border-bottom: 1px solid black;
+}
+
+.vertical-center {
+    min-height: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+}
+
+.ordered {
+    background-color: #FFF1D0;
+}
+
+.ordered .btn {
+    background-color: #06AED5;
+    border-color: #06AED5;
+}
+
+.btn:active,
+.btn.active {
+    background-color: #069fc2 !important;
+}
+
+
+.arrived {
+    background-color: #F5DC61;
+}
+
+.arrived .btn {
+    background-color: #06AED5;
+}
+
+body {
+    padding-top: 70px;
+}

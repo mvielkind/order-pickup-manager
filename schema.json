@@ -1,0 +1,224 @@
+{
+  "friendlyName" : "Order Pickup",
+  "logQueries" : true,
+  "uniqueName" : "order_pickup",
+  "defaults" : {
+    "defaults" : {
+      "assistant_initiation" : "task://welcome_message",
+      "fallback" : "task://danger",
+      "collect" : {
+        "validate_on_failure" : "task://hello_world"
+      }
+    }
+  },
+  "fieldTypes" : [],
+  "tasks" : [
+    {
+      "uniqueName": "danger",
+      "actions": {
+        "actions": [
+          {
+            "say": "I don't understand.  Text ARRIVE when you have arrived to pickup your order."
+          },
+          {"listen": true}
+        ]
+      },
+      "fields": [],
+      "samples": []
+    },
+    {
+      "uniqueName": "thank_you",
+      "actions": {
+        "actions": [
+          {
+            "say": "Thank you!  We'll let the restaurant know you're here."
+          }
+        ]
+      },
+      "fields": [],
+      "samples": []
+    },
+    {
+      "uniqueName": "get_car_details",
+      "actions": {
+        "actions": [
+          {
+            "collect": {
+              "name": "car_detail",
+              "questions": [
+                {
+                  "question": "What is the color and make of the car?",
+                  "name": "car_make"
+                },
+                {
+                  "question": "What is your license plate number?",
+                  "name": "car_license"
+                }
+              ],
+              "on_complete": {
+                "redirect": "https://d2611f8b.ngrok.io/bot/parse-car-details"
+              }
+            }
+          }
+        ]
+      },
+      "fields": [],
+      "samples": []
+    },
+    {
+      "uniqueName" : "confirm_arrive",
+      "actions" : {
+        "actions" : [
+          {
+            "say" : "Thank you for choosing our business!  Tell us about your order and we'll get it out to you!"
+          },
+          {
+            "collect" : {
+              "on_complete" : {
+                "redirect" : "https://d2611f8b.ngrok.io/bot/confirm-in-car"
+              },
+              "name" : "customer_name",
+              "questions" : [
+                {
+                  "question" : "What is the name on the order?",
+                  "name" : "first_name"
+                },
+                {
+                  "type": "Twilio.YES_NO",
+                  "question": "Are you waiting in your car?",
+                  "name": "in_car"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "fields" : [],
+      "samples" : [
+        {
+          "language" : "en-US",
+          "taggedText" : "Here"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "Arrive"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "Arrived"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "I'm waiting outside"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "I'm waiting"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "I'm here"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "I'm ready for pickup"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "Pickup"
+        }
+      ]
+    },
+    {
+      "uniqueName" : "welcome_message",
+      "actions" : {
+        "actions" : [
+          {
+            "say" : "Welcome!  Are you here to pickup your order?  If so, text ARRIVE to let us know!"
+          },
+          { "listen" : true }
+        ]
+      },
+      "fields" : [],
+      "samples" : [
+        {
+          "language" : "en-US",
+          "taggedText" : "Hello there"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "Whats up"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "Heyo"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "Hi there"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "Yo"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "Hey"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "How's it going"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "Hi"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "Hello"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "Lets start"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "Begin"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "BEGIN"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "begin"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "INITIATE"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "START"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "initiate"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "Initiate"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "start"
+        },
+        {
+          "language" : "en-US",
+          "taggedText" : "Start"
+        }
+      ]
+    }
+  ],
+  "modelBuild" : { "uniqueName" : "V2" }
+}

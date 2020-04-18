@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Arrive- Create New Order{% endblock %}
+
+{% block content %}
+    <div class="container min-vh-100">
+        <div class="row m-3">
+            <div class="col">
+                <h3>Create a new order and text your customer about the pickup policy.</h3>
+                <h5>Just fill out some details below and a text message will be sent.</h5>
+            </div>
+        </div>
+        <div class="row m-3 w-25">
+            <div class="col">
+                <form action="{{ url_for('send_text') }}" method="post">
+                    <div class="form-group">
+                        <label for="customerNameInput">Customer Name</label>
+                        <input class="form-control" id="customerNameInput" name="customer-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneInput">Phone Number</label>
+                        <input type="tel" id="phoneInput" name="to-number" class="form-control tel" placeholder="(123)456-7890" autocomplete="off" required>
+                    </div>
+                    <button type="submit" class="btn header mt-3 font-weight-bold">Send Text</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.mask.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/new-order.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Arrive- Order Created!{% endblock %}
+
+{% block content %}
+    <div class="container min-vh-100">
+        <div class="row m-3">
+            <div class="col">
+                <h3>ORDER CREATED!</h3>
+                <h5>An order was created for the following customer:</h5>
+                <div class="card mx-auto w-50">
+                    <div class="card-body">
+                        <h5 class="card-title customer">Customer Name: {{ customer_name }}</h5>
+                        <p class="card-text phone"><b>Phone:</b> {{ phone_number }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Force next columns to break to new line -->
+            <div class="w-100"></div>
+
+            <div class="col mt-3">
+                <h5>You can add another order or manage your active orders:</h5>
+            </div>
+
+            <!-- Force next columns to break to new line -->
+            <div class="w-100"></div>
+
+            <div class="col mt-3 text-center">
+                <a class="btn btn-primary mr-3" href="{{ url_for('new_order') }}">Start New Order</a>
+                <a class="btn btn-primary mr-3" href="{{ url_for('orders') }}">Active Orders</a>
+            </div>
+        </div>
+
+    </div>
+    <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.mask.min.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Arrive{% endblock %}
+
+{% block content %}
+    <div class="container min-vh-100 vertical-center">
+        <div class="row align-items-center">
+            <div class="col">
+                <h1 class="display-4">Welcome to Arrive!</h1>
+                <p class="lead">Arrive is a lightweight platform to help small businesses manage order pickups.  This project was submitted as a part of the Twilio/Dev Hackathon!</br></br>To get started choose an option below: </p>
+            </div>
+            <!-- Force next columns to break to new line -->
+            <div class="w-100"></div>
+            <div class="col">
+                <a class="btn btn-primary mr-3" href="{{ url_for('new_order') }}">Start New Order</a>
+                <a class="btn btn-primary mr-3" href="{{ url_for('orders') }}">Active Orders</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

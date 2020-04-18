@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Active Orders{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+         <nav class="navbar navbar-light fixed-top bg-white">
+          <!-- Brand -->
+             <a class="navbar-brand title-font" href="{{ url_for('main') }}"><b>Arrive</b></a>
+
+          <!-- Toggler/collapsibe Button -->
+          <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <!-- Navbar links -->
+          <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link text-center" href="{{ url_for('main') }}">Home</a>
+              </li>
+              <li class="nav-item text-center">
+                <a class="nav-link" href="{{ url_for('new_order') }}">Create New Order</a>
+              </li>
+              <li class="nav-item text-center">
+                <a class="nav-link" href="{{ url_for('orders') }}">Customer Arrivals</a>
+              </li>
+            </ul>
+          </div>
+         </nav>
+        </div>
+    </div>
+  <div class="container min-vh-100">
+      <div class="row pt-6">
+          <div class="col">
+              <h3>Active Orders</h3>
+          </div>
+      </div>
+      <div class="row justify-content-center" id="order-list">
+          {% for order in orders %}
+            <div class="col-sm-8 col-md-8 col-lg-6 pb-2">
+                <div class="card {{ 'ordered' if order.data.status == 'Order Placed' else 'arrived' if order.data.status == 'Arrived' else 'ordered'}}" data-order-id="{{ order.key }}">
+                    <div class="card-body">
+                        <h5 class="card-title customer">Customer: {{ order.data.name }}</h5>
+                        <p class="card-text phone"><b>Phone:</b> {{ order.data.readPhone }}</p>
+                        <p class="card-text status"><b>Status:</b> {{ order.data.status }}</p>
+                        {% if order.data.status == "Arrived" %}
+                            <p class="card-text"><b>In Car:</b> {{ order.data.in_car }}</p>
+                            {% if order.data.car_make %}
+                                <p class="card-text"><b>Car Description:</b> {{ order.data.car_make }}</p>
+                                <p class="card-text"><b>Car License:</b> {{ order.data.car_license }}</p>
+                            {% endif %}
+                        {% endif %}
+                        <button class="btn btn-success">Close Order</button>
+
+                        {% if order.data.status == "Order Placed" %}
+                            <button class="btn btn-info">Send Order Ready Text</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+          {% endfor %}
+      </div>
+  </div>
+  <script src="//media.twiliocdn.com/sdk/js/sync/v0.8/twilio-sync.min.js"></script>
+  <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/order-list.js') }}"></script>
+{% endblock %}
