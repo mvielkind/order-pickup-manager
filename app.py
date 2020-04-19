@@ -104,17 +104,20 @@ def alert_arrival(customer_input):
         fetch().\
         data
 
-    # Add new details to the order.
-    for k, v in arrival_details.items():
-        order[k] = v
+    # Check if any order details have changed.
+    # Update the order with those details.
+    answers = ["in_car", "car_make", "car_license", "status"]
+    if any(order[k] != arrival_details[k] for k in answers):
+        for k, v in arrival_details.items():
+            order[k] = v
 
-    # Update the order details.
-    updated_order = TWILIO_CLIENT.sync.services(TWILIO_SYNC_SERVICE_SID).\
-        sync_maps(TWILIO_SYNC_MAP_SID).\
-        sync_map_items(phone_num).\
-        update(
-        data=order
-    )
+        # Update the order details.
+        updated_order = TWILIO_CLIENT.sync.services(TWILIO_SYNC_SERVICE_SID).\
+            sync_maps(TWILIO_SYNC_MAP_SID).\
+            sync_map_items(phone_num).\
+            update(
+            data=order
+        )
 
     # Response to provide back to the customer.
     return {"actions": [
@@ -219,7 +222,7 @@ def token():
     sync_grant = SyncGrant(service_sid=TWILIO_SYNC_SERVICE_SID)
     token.add_grant(sync_grant)
 
-    return jsonify(identity="sync", token=token.to_jwt().decode('utf-8'), syncListID=TWILIO_SYNC_MAP_SID)
+    return jsonify(identity="sync", token=token.to_jwt().decode('utf-8'), syncMapID=TWILIO_SYNC_MAP_SID)
 
 
 if __name__ == "__main__":
