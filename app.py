@@ -97,27 +97,30 @@ def alert_arrival(customer_input):
 
     arrival_details["status"] = "Arrived"
 
-    # Get order information.
-    order = TWILIO_CLIENT.sync.services(TWILIO_SYNC_SERVICE_SID).\
-        sync_maps(TWILIO_SYNC_MAP_SID).\
-        sync_map_items(phone_num).\
-        fetch().\
-        data
-
-    # Check if any order details have changed.
-    # Update the order with those details.
-    answers = ["in_car", "car_make", "car_license", "status"]
-    if any(order[k] != arrival_details[k] for k in answers):
-        for k, v in arrival_details.items():
-            order[k] = v
-
-        # Update the order details.
-        updated_order = TWILIO_CLIENT.sync.services(TWILIO_SYNC_SERVICE_SID).\
+    # Get order associated with phone number.
+    # If phone number isn't associated with an order let the customer know.
+    try:
+        order = TWILIO_CLIENT.sync.services(TWILIO_SYNC_SERVICE_SID).\
             sync_maps(TWILIO_SYNC_MAP_SID).\
             sync_map_items(phone_num).\
-            update(
-            data=order
-        )
+            fetch().\
+            data
+    except TwilioRestException as ex:
+        return {"actions": [
+            {"say": "Hmmmmm we can't find an order associated with this phone number."}
+        ]}
+
+    # Update the order object with the details from the customer.
+    for k, v in arrival_details.items():
+        order[k] = v
+
+    # Update the order details.
+    updated_order = TWILIO_CLIENT.sync.services(TWILIO_SYNC_SERVICE_SID).\
+        sync_maps(TWILIO_SYNC_MAP_SID).\
+        sync_map_items(phone_num).\
+        update(
+        data=order
+    )
 
     # Response to provide back to the customer.
     return {"actions": [
