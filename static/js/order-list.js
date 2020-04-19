@@ -14,7 +14,7 @@ $(function () {
 
     // All orders are stored in a Sync Map.  Connect to the Sync Map and create event listeners for when
     // for when new items are added to the list and when items are closed from the list.
-    syncClient.map(tokenResponse.syncListID).then(function(syncMap) {
+    syncClient.map(tokenResponse.syncMapID).then(function(syncMap) {
       syncMap.getItems().then(function(itm){
         itm.items.forEach(test => console.log(test));
       });
@@ -37,7 +37,8 @@ $(function () {
 
         // If the customer has arrived change the class.
         if (dat.status === "Arrived") {
-          card.toggleClass("ordered arrived");
+          card.removeClass("ordered");
+          card.addClass("arrived");
         }
 
         // After sending a reminder remove that button from the order to prevent spamming customer.
@@ -49,18 +50,39 @@ $(function () {
         }
 
         // If customer has arrived add new info to the order card.
+        // If the customer changes  one of their response update the card in-place.
         if ("in_car" in dat) {
+          let cardInCar = card.find('.in-car');
           let inCar = '<p class="card-text in-car"><b>Waiting in Car:</b> ' + dat.in_car + '</p>';
-          $(inCar).insertAfter(cardStatus);
+
+          if ( cardInCar.length ){
+            cardInCar.replaceWith(inCar);
+          } else {
+            $(inCar).insertAfter(cardStatus);
+          }
+
+          let cardCarMake = card.find('.car-make');
+          let cardCarLicense = card.find(".car-license");
 
           // Add extra details if waiting in car.
           if (dat.in_car === "Yes") {
-            console.log("Yes");
-            let carMake = '<p class="card-text car-make"><b>Car Make: </b>'+ dat.car_make + '</p>';
-            $(carMake).insertAfter(card.find(".in-car"));
+            let carMake = '<p class="card-text car-make"><b>Car Description: </b>'+ dat.car_make + '</p>';
+            if ( cardCarMake.length ) {
+              cardCarMake.replaceWith(carMake);
+            } else {
+              $(carMake).insertAfter(card.find(".in-car"));
+            }
 
             let carLicense = '<p class="card-text car-license"><b>Car License: </b>'+ dat.car_license + '</p>';
-            $(carLicense).insertAfter(card.find(".car-make"));
+            if ( cardCarLicense.length ){
+              cardCarLicense.replaceWith(carLicense);
+            } else {
+              $(carLicense).insertAfter(card.find(".car-make"));
+            }
+          } else {
+            // Remove car make and car license if they exist.
+            cardCarMake.remove();
+            cardCarLicense.remove();
           }
         }
 

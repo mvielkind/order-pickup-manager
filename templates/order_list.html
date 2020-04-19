@@ -46,10 +46,10 @@
                         <p class="card-text phone"><b>Phone:</b> {{ order.data.readPhone }}</p>
                         <p class="card-text status"><b>Status:</b> {{ order.data.status }}</p>
                         {% if order.data.status == "Arrived" %}
-                            <p class="card-text"><b>In Car:</b> {{ order.data.in_car }}</p>
+                            <p class="card-text in-car"><b>In Car:</b> {{ order.data.in_car }}</p>
                             {% if order.data.car_make %}
-                                <p class="card-text"><b>Car Description:</b> {{ order.data.car_make }}</p>
-                                <p class="card-text"><b>Car License:</b> {{ order.data.car_license }}</p>
+                                <p class="card-text car-make"><b>Car Description:</b> {{ order.data.car_make }}</p>
+                                <p class="card-text car-license"><b>Car License:</b> {{ order.data.car_license }}</p>
                             {% endif %}
                         {% endif %}
                         <button class="btn btn-success">Close Order</button>
