@@ -38,6 +38,7 @@
           </div>
       </div>
       <div class="row justify-content-center" id="order-list">
+        {% if (orders is defined) and orders %}
           {% for order in orders %}
             <div class="col-sm-8 col-md-8 col-lg-6 pb-2">
                 <div class="card {{ 'ordered' if order.data.status == 'Order Placed' else 'arrived' if order.data.status == 'Arrived' else 'ordered'}}" data-order-id="{{ order.key }}">
@@ -46,7 +47,7 @@
                         <p class="card-text phone"><b>Phone:</b> {{ order.data.readPhone }}</p>
                         <p class="card-text status"><b>Status:</b> {{ order.data.status }}</p>
                         {% if order.data.status == "Arrived" %}
-                            <p class="card-text in-car"><b>In Car:</b> {{ order.data.in_car }}</p>
+                            <p class="card-text in-car"><b>Waiting in Car:</b> {{ order.data.in_car }}</p>
                             {% if order.data.car_make %}
                                 <p class="card-text car-make"><b>Car Description:</b> {{ order.data.car_make }}</p>
                                 <p class="card-text car-license"><b>Car License:</b> {{ order.data.car_license }}</p>
@@ -61,6 +62,12 @@
                 </div>
             </div>
           {% endfor %}
+        {% else %}
+          <div class="w-100"></div>
+          <div class="col m-3">
+            <h3>No Active Orders</h3>
+          </div>
+        {% endif %}
       </div>
   </div>
   <script src="//media.twiliocdn.com/sdk/js/sync/v0.8/twilio-sync.min.js"></script>
