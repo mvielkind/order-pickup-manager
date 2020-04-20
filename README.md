@@ -6,21 +6,26 @@ This repository creates a prototype of a order pickup manager that was submitted
 
 Before getting started there are a couple things you need to have setup.
 
-```
 - If you don't have a Twilio account already, you can use this [referral link](www.twilio.com/referral/J5x4pK) to setup your account with a free $10 to fund your account to get started.
 - Install [ngrok](https://ngrok.com/) to connect our Autopilot webhooks to.
 - Setup the [Twilio CLI tool](https://www.twilio.com/docs/twilio-cli/quickstart) and install the [Autopilot CLI plug-in](https://www.twilio.com/docs/autopilot/twilio-autopilot-cli) which will be used to deploy our Autopilt bot.
 - A Twilio phone number.  You can log into the Twilio console and [get one here](https://www.twilio.com/console/phone-numbers/search).
 
+## Install Project Dependencies
+
+Start by cloning this repository and installing all the package dependencies in `requirements.txt`.
+
+```
+Flask==1.1.1
+twilio==6.35.2
+python-dotenv==0.12.0
 ```
 
 ## Setup ngrok
 
-Ngrok is used to allow Twilio to communicate with your local Flask application.  If you haven't already, [download and install ngrok](https://ngrok.com).  Once ngrok is installed you can begin using ngrok by typing `./ngrok http 5000` in the commandline.  Ngrok creates a unique URL that will forward any requests made to that URL to your local development environment.  You should see something similar to this in your command window:
+Ngrok is used to allow Twilio to communicate with your local Flask application.  If you haven't already, [download and install ngrok](https://ngrok.com).  Once ngrok is installed you can begin using ngrok by typing `./ngrok http 5000` in the commandline.  Ngrok creates a unique URL that will forward any requests made to that URL to your local development environment.
 
-**PLACEHOLDER FOR NGROK IMAGE**
-
-There should be two URLs labeled "Forwarding".  These forwarding URLs will be used as the webhooks to process data collected from your Autopilot bot in the next step.  Let's get to it!
+There should be two URLs labeled "Forwarding".  The "https://" forwarding URL will be used as the webhooks to process data collected from your Autopilot bot in the next step.
 
 ## Setting Up the Autopilot Bot
 
@@ -108,6 +113,22 @@ If you make updates to your bot all you have to do is make those changes in `sch
 twilio autopilot:update --schema schema.json
 ```
 
+### Attaching Autopilot to Your Twilio Number
+
+The last step is to attach the Autopilot bot to your Twilio number so that when customers text your number Autopilot will handle their request.
+
+Log into the Twilio console and select **Autopilot** from the menu on the left.  Click on the **order_pickup** bot you just created.
+
+Select **Channels** from the menu on the left and then choose **Programmable Messaging**.
+
+Copy the **MESSAGING URL**.
+
+Select **Phone Numbers** from the left menu of products and services.  Choose the phone number you want to use from the list.
+
+Scroll down to the bottom and paste the Messaging URL into the **A Message Comes In** text box.
+
+Now you have an interactive Autopilot bot ready to get your order arrival details from you!
+
 ## Creating a Sync Map
 
 With your Autopilot setup the next step is to initialize a Sync Map where orders will be stored.  [Sync](https://www.twilio.com/sync) allows the platform to track real-time updates for customer arrivals and display new information through the platform without having to refresh the page.
@@ -168,7 +189,3 @@ python app.py
 ```
 
 Your application is now live!
-
-## What I learned
-
-I had a ton of fun building out this prototype.  And I learned a bunch!  Building front-end applications and donig front-end design is not something I'm comfortable with, but I learned a lot through this project and want to do more.  There are a bunch of other features I thought could be added here.
