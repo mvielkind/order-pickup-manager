@@ -14,24 +14,23 @@
     background-color: #FFF1D0;
 }
 
-.ordered .btn {
+.btn {
     background-color: #06AED5;
     border-color: #06AED5;
+    color: white;
 }
 
 .btn:active,
-.btn.active {
+.btn.active,
+.btn:hover {
     background-color: #069fc2 !important;
+    color: white;
 }
-
 
 .arrived {
     background-color: #F5DC61;
 }
 
-.arrived .btn {
-    background-color: #06AED5;
-}
 
 body {
     padding-top: 70px;
