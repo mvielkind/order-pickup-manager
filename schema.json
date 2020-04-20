@@ -5,10 +5,7 @@
   "defaults" : {
     "defaults" : {
       "assistant_initiation" : "task://welcome_message",
-      "fallback" : "task://danger",
-      "collect" : {
-        "validate_on_failure" : "task://hello_world"
-      }
+      "fallback" : "task://danger"
     }
   },
   "fieldTypes" : [],
@@ -56,7 +53,7 @@
                 }
               ],
               "on_complete": {
-                "redirect": "https://d2611f8b.ngrok.io/bot/parse-car-details"
+                "redirect": "<YOUR_NGROK_URL>/bot/parse-car-details"
               }
             }
           }
@@ -75,7 +72,7 @@
           {
             "collect" : {
               "on_complete" : {
-                "redirect" : "https://d2611f8b.ngrok.io/bot/confirm-in-car"
+                "redirect" : "<YOUR_NGROK_URL>/bot/confirm-in-car"
               },
               "name" : "customer_name",
               "questions" : [
