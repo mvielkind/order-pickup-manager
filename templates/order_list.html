@@ -53,10 +53,10 @@
                                 <p class="card-text car-license"><b>Car License:</b> {{ order.data.car_license }}</p>
                             {% endif %}
                         {% endif %}
-                        <button class="btn btn-success">Close Order</button>
+                        <button class="btn btn-order-close">Close Order</button>
 
                         {% if order.data.status == "Order Placed" %}
-                            <button class="btn btn-info">Send Order Ready Text</button>
+                            <button class="btn btn-order-ready">Send Order Ready Text</button>
                         {% endif %}
                     </div>
                 </div>

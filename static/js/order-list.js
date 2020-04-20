@@ -21,7 +21,7 @@ $(function () {
 
       // When a new arrival occurs create a new card with the details.
       syncMap.on('itemAdded', function(event) {
-        console.log("New Order Added")
+        console.log("New Order Added");
         createOrderCards(event.item);
       });
 
@@ -89,7 +89,7 @@ $(function () {
       });
 
       // Listen for closing an order.  Remove order from Sync.
-      $(document).on("click", ".btn-success", function(event) {
+      $(document).on("click", ".btn-order-close", function(event) {
         let closeCardCol = $(event.target).closest("div.col-sm-8");
         let closeCard = $(event.target).closest("div.card");
 
@@ -106,7 +106,7 @@ $(function () {
   });
 
   // Send reminder text messages.
-  $(document).on("click", ".btn-info", function(event) {
+  $(document).on("click", ".btn-order-ready", function(event) {
     let orderCard = $(event.target).closest("div.card");
     let orderId = orderCard.data("orderId");
 
@@ -142,11 +142,11 @@ $(function () {
     contentStatus.className="card-text status";
 
     let closeButton = document.createElement("button");
-    closeButton.className="btn btn-success mr-1";
+    closeButton.className="btn btn-order-close mr-1";
     closeButton.innerHTML="Close Order";
 
     let remindButton = document.createElement("button");
-    remindButton.className="btn btn-info";
+    remindButton.className="btn btn-order-ready";
     remindButton.innerHTML="Send Order Ready Text";
 
     // Put the body together.
